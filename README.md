@@ -1,4 +1,4 @@
-# OKX Web3 Go Wallet SDK
+# OKX Web3 Go Wallet SDK(修复了bip32 和bip39 包无法安装的问题)
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/724165435/go-wallet-sdk.svg)](https://pkg.go.dev/github.com/724165435/go-wallet-sdk)
 [![License](https://img.shields.io/github/license/okx/go-wallet-sdk)](https://github.com/724165435/go-wallet-sdk/blob/main/LICENSE)
