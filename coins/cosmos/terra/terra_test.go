@@ -5,10 +5,10 @@ import (
 	"math/big"
 	"testing"
 
+	"github.com/724165435/go-bip39"
 	"github.com/724165435/go-wallet-sdk/coins/cosmos/types"
 	"github.com/724165435/go-wallet-sdk/crypto/bip32"
 	"github.com/stretchr/testify/require"
-	"github.com/gojuukaze/go-bip39"
 )
 
 // ///Tx details

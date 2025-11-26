@@ -7,9 +7,9 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/724165435/go-bip39"
 	associatedtokenaccount "github.com/724165435/go-wallet-sdk/coins/solana/associated-token-account"
 	computebudget "github.com/724165435/go-wallet-sdk/coins/solana/compute-budget"
-	"github.com/gojuukaze/go-bip39"
 
 	"github.com/724165435/go-wallet-sdk/coins/solana/base"
 	"github.com/724165435/go-wallet-sdk/coins/solana/system"
