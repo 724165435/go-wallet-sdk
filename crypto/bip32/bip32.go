@@ -1,7 +1,7 @@
 package bip32
 
 import (
-	bip32 "github.com/gojuukaze/go-bip32"
+	bip32 "github.com/724165435/go-bip32"
 	"strconv"
 	"strings"
 )

@@ -17,7 +17,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil/bech32"
 	"github.com/724165435/go-wallet-sdk/crypto/base58"
 	"github.com/724165435/go-wallet-sdk/crypto/bip32"
-	bip39 "github.com/gojuukaze/go-bip39"
+	bip39 "github.com/724165435/go-bip39"
 	"golang.org/x/crypto/sha3"
 	"io"
 	"os"

@@ -11,7 +11,7 @@ require (
 	github.com/724165435/go-wallet-sdk/crypto v0.0.2
 	github.com/724165435/go-wallet-sdk/util v0.0.1
 	github.com/stretchr/testify v1.8.4
-	github.com/gojuukaze/go-bip39 v1.1.0
+	github.com/724165435/go-bip39 v1.1.0
 )
 
 require (
@@ -28,7 +28,7 @@ require (
 	github.com/mmcloughlin/addchain v0.4.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/supranational/blst v0.3.11 // indirect
-	github.com/gojuukaze/go-bip32 v1.0.0 // indirect
+	github.com/724165435/go-bip32 v1.0.0 // indirect
 	golang.org/x/crypto v0.15.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect

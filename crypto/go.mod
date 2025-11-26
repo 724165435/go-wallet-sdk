@@ -11,8 +11,8 @@ require (
 	github.com/ethereum/go-ethereum v1.13.4
 	github.com/724165435/go-wallet-sdk/util v0.0.1
 	github.com/stretchr/testify v1.8.4
-	github.com/gojuukaze/go-bip32 v1.0.1
-	github.com/gojuukaze/go-bip39 v1.1.1
+	github.com/724165435/go-bip32 v1.0.1
+	github.com/724165435/go-bip39 v1.1.1
 	go.dedis.ch/kyber/v3 v3.1.0
 	golang.org/x/crypto v0.15.0
 )
