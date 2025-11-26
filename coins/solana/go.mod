@@ -6,7 +6,7 @@ require (
 	github.com/blocto/solana-go-sdk v1.27.0
 	github.com/724165435/go-wallet-sdk/crypto v0.0.1
 	github.com/stretchr/testify v1.8.4
-	github.com/tyler-smith/go-bip39 v1.1.0
+	github.com/gojuukaze/go-bip39 v1.1.0
 )
 
 require (

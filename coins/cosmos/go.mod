@@ -9,7 +9,7 @@ require (
 	github.com/ethereum/go-ethereum v1.12.2
 	github.com/724165435/go-wallet-sdk/crypto v0.0.1
 	github.com/stretchr/testify v1.8.4
-	github.com/tyler-smith/go-bip39 v1.1.0
+	github.com/gojuukaze/go-bip39 v1.1.0
 	golang.org/x/crypto v0.12.0
 )
 
@@ -21,7 +21,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/tyler-smith/go-bip32 v1.0.0 // indirect
+	github.com/gojuukaze/go-bip32 v1.0.0 // indirect
 	golang.org/x/exp v0.0.0-20230810033253-352e893a4cad // indirect
 	golang.org/x/sys v0.11.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

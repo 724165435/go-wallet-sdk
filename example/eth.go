@@ -16,7 +16,7 @@ import (
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/tyler-smith/go-bip39"
+	"github.com/gojuukaze/go-bip39"
 )
 
 func GenerateMnemonic() (string, error) {
