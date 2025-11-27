@@ -121,9 +121,7 @@ func SignTransaction(txJson, prvHex string) (string, error) {
 	}
 	var data []byte
 	if len(s.Data) != 0 {
-		if data, err = util.DecodeHexString(s.Data); err != nil {
-			return "", err
-		}
+		data = util.DecodeHexString(s.Data)
 	}
 	prvBytes, err := hex.DecodeString(prvHex)
 	if err != nil {

@@ -330,10 +330,7 @@ func SignRawTransaction(signDoc string, privateKey *btcec.PrivateKey) (string, e
 		return "", err
 	}
 	hash := sha256.Sum256(signDocBtyes)
-	signature, err := ecdsa.SignCompact(privateKey, hash[:], false)
-	if err != nil {
-		return "", err
-	}
+	signature := ecdsa.SignCompact(privateKey, hash[:], false)
 	return hex.EncodeToString(signature[1:]), nil
 }
 
@@ -471,10 +468,7 @@ func BuildTxAction(param CommonParam, messages []*types.Any, privateKeyHex strin
 	var signBytes []byte
 	if useEthSecp256k1 {
 		m := HashMessage(signDocBtyes)
-		result, err := ecdsa.SignCompact(privateKey, m, false)
-		if err != nil {
-			return "", err
-		}
+		result := ecdsa.SignCompact(privateKey, m, false)
 		V := result[0]
 		R := result[1:33]
 		S := result[33:65]
@@ -485,10 +479,7 @@ func BuildTxAction(param CommonParam, messages []*types.Any, privateKeyHex strin
 	} else {
 		hash := sha256.Sum256(signDocBtyes)
 		var err error
-		signBytes, err = ecdsa.SignCompact(privateKey, hash[:], false)
-		if err != nil {
-			return "", err
-		}
+		signBytes = ecdsa.SignCompact(privateKey, hash[:], false)
 		signBytes = signBytes[1:]
 	}
 
@@ -542,10 +533,7 @@ func BuildTxActionForSignMessage(param CommonParam, messages []*types.Any, priva
 	var signBytes []byte
 	if useEthSecp256k1 {
 		m := HashMessage(signDocBtyes)
-		result, err := ecdsa.SignCompact(privateKey, m, false)
-		if err != nil {
-			return "", "", err
-		}
+		result := ecdsa.SignCompact(privateKey, m, false)
 		V := result[0]
 		R := result[1:33]
 		S := result[33:65]
@@ -556,10 +544,7 @@ func BuildTxActionForSignMessage(param CommonParam, messages []*types.Any, priva
 	} else {
 		hash := sha256.Sum256(signDocBtyes)
 		var err error
-		signBytes, err = ecdsa.SignCompact(privateKey, hash[:], false)
-		if err != nil {
-			return "", "", err
-		}
+		signBytes = ecdsa.SignCompact(privateKey, hash[:], false)
 		signBytes = signBytes[1:]
 	}
 
@@ -615,10 +600,7 @@ func SignDoc(body string, auth string, privateKeyHex string, ChainId string, Acc
 
 	var signBytes []byte
 	hash := sha256.Sum256(signDocBtyes)
-	signature, err := ecdsa.SignCompact(privateKey, hash[:], false)
-	if err != nil {
-		return "", "", err
-	}
+	signature := ecdsa.SignCompact(privateKey, hash[:], false)
 	signBytes = signature[1:]
 
 	signatures := make([][]byte, 0)
@@ -672,10 +654,8 @@ func SignAminoMessage(data string, privateKeyHex string) (string, error) {
 	}
 
 	privateKey, _ := btcec.PrivKeyFromBytes(pkBytes)
-	signature, err := ecdsa.SignCompact(privateKey, hash[:], false)
-	if err != nil {
-		return "", err
-	}
+	signature := ecdsa.SignCompact(privateKey, hash[:], false)
+
 	return base64.StdEncoding.EncodeToString(signature[1:]), nil
 }
 
@@ -907,9 +887,6 @@ func GetSigningHash(rawTxByte string) (string, error) {
 }
 func SignRawJsonTransaction(signDoc string, privateKey *btcec.PrivateKey) (string, error) {
 	hash := sha256.Sum256([]byte(signDoc))
-	signature, err := ecdsa.SignCompact(privateKey, hash[:], false)
-	if err != nil {
-		return "", err
-	}
+	signature := ecdsa.SignCompact(privateKey, hash[:], false)
 	return hex.EncodeToString(signature[1:]), nil
 }

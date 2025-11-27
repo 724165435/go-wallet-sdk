@@ -5,13 +5,13 @@
 package txscript
 
 import (
-	"github.com/btcsuite/btcd/btcec/v2"
-	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
-	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/724165435/go-wallet-sdk/coins/kaspa/kaspad/domain/consensus/model/externalapi"
 	"github.com/724165435/go-wallet-sdk/coins/kaspa/kaspad/domain/consensus/utils/consensushashing"
 	"github.com/724165435/go-wallet-sdk/coins/kaspa/kaspad/domain/dagconfig"
 	"github.com/724165435/go-wallet-sdk/coins/kaspa/kaspad/util"
+	"github.com/btcsuite/btcd/btcec/v2"
+	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
+	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/pkg/errors"
 )
 
@@ -41,10 +41,7 @@ func RawTxInSignatureECDSA(tx *externalapi.DomainTransaction, idx int, hashType 
 	if err != nil {
 		return nil, err
 	}
-	signature, err := ecdsa.SignCompact(key, (*hash.ByteArray())[:], true)
-	if err != nil {
-		return nil, errors.Errorf("cannot sign tx input: %s", err)
-	}
+	signature := ecdsa.SignCompact(key, (*hash.ByteArray())[:], true)
 
 	return append(signature[1:], byte(hashType)), nil
 }

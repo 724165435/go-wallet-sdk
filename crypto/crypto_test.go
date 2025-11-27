@@ -11,18 +11,19 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"github.com/btcsuite/btcd/btcec/v2"
-	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
-	"github.com/btcsuite/btcd/btcutil"
-	"github.com/btcsuite/btcd/btcutil/bech32"
-	"github.com/724165435/go-wallet-sdk/crypto/base58"
-	"github.com/724165435/go-wallet-sdk/crypto/bip32"
-	bip39 "github.com/724165435/go-bip39"
-	"golang.org/x/crypto/sha3"
 	"io"
 	"os"
 	"strings"
 	"testing"
+
+	bip39 "github.com/724165435/go-bip39"
+	"github.com/724165435/go-wallet-sdk/crypto/base58"
+	"github.com/724165435/go-wallet-sdk/crypto/bip32"
+	"github.com/btcsuite/btcd/btcec/v2"
+	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
+	"github.com/btcsuite/btcd/btcutil"
+	"github.com/btcsuite/btcd/btcutil/bech32"
+	"golang.org/x/crypto/sha3"
 )
 
 func TestNewChildKeyByPathString(t *testing.T) {
@@ -110,7 +111,7 @@ func TestSignMessage(t *testing.T) {
 		}
 
 		k, _ := btcec.PrivKeyFromBytes(pk)
-		s2, _ := ecdsa.SignCompact(k, msgHash, false)
+		s2 := ecdsa.SignCompact(k, msgHash, false)
 		secp256k1Signature2 := hex.EncodeToString(s2)
 		if secp256k1Signature2 != secp256k1Signature {
 			t.Error("secp256k1Signature not match", secp256k1Signature, secp256k1Signature2)

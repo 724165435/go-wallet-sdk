@@ -62,10 +62,7 @@ func NewPrivateKey() string {
 }
 
 func GetPublicKey(privateKeyHex string) (string, error) {
-	privateKeyBytes, err := util.DecodeHexString(privateKeyHex)
-	if err != nil {
-		return "", err
-	}
+	privateKeyBytes := util.DecodeHexString(privateKeyHex)
 	x, y := secp256k1.S256().ScalarBaseMult(privateKeyBytes)
 	publicKeyBytes := elliptic.Marshal(secp256k1.S256(), x, y)
 	return util.EncodeHexWith0x(publicKeyBytes), nil
@@ -218,16 +215,10 @@ func AddressToBytes(addr string) []byte {
 }
 
 func SignTx(message *Message, privateKeyHex string) (*SignedMessage, error) {
-	privKeyBytes, err := util.DecodeHexString(privateKeyHex)
-	if err != nil {
-		return nil, err
-	}
+	privKeyBytes := util.DecodeHexString(privateKeyHex)
 	privateKey, _ := btcec.PrivKeyFromBytes(privKeyBytes)
 
-	sig, err := ecdsa2.SignCompact(privateKey, message.Hash(), false)
-	if err != nil {
-		return nil, err
-	}
+	sig := ecdsa2.SignCompact(privateKey, message.Hash(), false)
 	V := sig[0]
 	R := sig[1:33]
 	S := sig[33:65]

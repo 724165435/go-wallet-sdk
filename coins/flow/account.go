@@ -5,9 +5,10 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 	"encoding/hex"
-	"github.com/btcsuite/btcd/btcec/v2"
+
 	"github.com/724165435/go-wallet-sdk/coins/flow/core"
 	"github.com/724165435/go-wallet-sdk/util"
+	"github.com/btcsuite/btcd/btcec/v2"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -69,6 +70,6 @@ func bitsToBytes(bits int) int {
 	return (bits + 7) >> 3
 }
 func ValidateAddress(address string) bool {
-	bytes, err := util.DecodeHexString(address)
-	return err == nil && len(bytes) == 8
+	bytes := util.DecodeHexString(address)
+	return len(bytes) == 8
 }

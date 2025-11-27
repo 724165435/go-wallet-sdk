@@ -11,12 +11,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
+
+	"github.com/724165435/go-wallet-sdk/util"
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/btcsuite/btcd/btcec/v2/schnorr"
 	"github.com/btcsuite/btcd/btcutil/bech32"
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
-	"github.com/724165435/go-wallet-sdk/util"
-	"strings"
 )
 
 const (
@@ -49,10 +50,8 @@ func NpubEncode(pubHex string) (res string, err error) {
 			return
 		}
 	}()
-	pub, err := util.DecodeHexString(pubHex)
-	if err != nil {
-		return "", err
-	}
+	pub := util.DecodeHexString(pubHex)
+
 	return bech32.EncodeFromBase256(HRP, pub)
 }
 func NsecEncode(prvHex string) (res string, err error) {
@@ -62,10 +61,7 @@ func NsecEncode(prvHex string) (res string, err error) {
 			return
 		}
 	}()
-	pub, err := util.DecodeHexString(prvHex)
-	if err != nil {
-		return "", err
-	}
+	pub := util.DecodeHexString(prvHex)
 	return bech32.EncodeFromBase256(NSec, pub)
 }
 
@@ -211,18 +207,13 @@ func VerifyEvent(e *Event) (ok bool) {
 		return false
 	}
 
-	sigBytes, err := util.DecodeHexString(e.Sig)
-	if err != nil {
-		return false
-	}
+	sigBytes := util.DecodeHexString(e.Sig)
+
 	s, err := schnorr.ParseSignature(sigBytes)
 	if err != nil {
 		return false
 	}
-	pubKeyBytes, err := util.DecodeHexString(e.Pubkey)
-	if err != nil {
-		return false
-	}
+	pubKeyBytes := util.DecodeHexString(e.Pubkey)
 	p, err := schnorr.ParsePubKey(pubKeyBytes)
 	if err != nil {
 		return false
@@ -231,10 +222,7 @@ func VerifyEvent(e *Event) (ok bool) {
 }
 
 func TryGetPubkey(pubkeyHex string) []byte {
-	pub, err := util.DecodeHexString(pubkeyHex)
-	if err != nil {
-		return make([]byte, 0)
-	}
+	pub := util.DecodeHexString(pubkeyHex)
 	full := make([]byte, len(pub)+1)
 	full[0] = secp256k1.PubKeyFormatCompressedOdd
 	format := full[0]

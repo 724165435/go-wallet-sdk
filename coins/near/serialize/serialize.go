@@ -4,11 +4,12 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"math/big"
+	"strings"
+
 	"github.com/724165435/go-wallet-sdk/crypto/base58"
 	"github.com/724165435/go-wallet-sdk/util"
 	"github.com/shopspring/decimal"
-	"math/big"
-	"strings"
 )
 
 const (
@@ -105,10 +106,7 @@ func TryParse(s string) ([]byte, error) {
 		return nil, fmt.Errorf("key decode error, key =%s", s)
 	}
 	if !strings.HasPrefix(s, NearPrefix) {
-		publicKeyByte, err := util.DecodeHexString(s)
-		if err != nil {
-			return nil, fmt.Errorf("key decode error, key =%s", s)
-		}
+		publicKeyByte := util.DecodeHexString(s)
 		return publicKeyByte, nil
 	}
 	args := strings.Split(s, ":")

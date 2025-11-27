@@ -64,10 +64,7 @@ func NewAddress(seed []byte, version wallet.Version) (string, error) {
 }
 
 func CheckPubKeyAddress(pubKeyHex string, addr string) error {
-	b, err := util.DecodeHexString(pubKeyHex)
-	if err != nil {
-		return err
-	}
+	b := util.DecodeHexString(pubKeyHex)
 	if len(b) != ed25519.PublicKeySize {
 		return errors.New("invalid public key size")
 	}
@@ -87,10 +84,7 @@ func CheckPubKeyAddress(pubKeyHex string, addr string) error {
 }
 
 func NewPubKeyAddress(pubKeyHex string, version string) (string, error) {
-	b, err := util.DecodeHexString(pubKeyHex)
-	if err != nil {
-		return "", err
-	}
+	b := util.DecodeHexString(pubKeyHex)
 	if len(b) != ed25519.PublicKeySize {
 		return "", errors.New("invalid public key size")
 	}

@@ -4,12 +4,13 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"errors"
-	"github.com/btcsuite/btcd/btcec/v2"
-	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
+
 	"github.com/724165435/go-wallet-sdk/coins/cosmos/okc/tx/amino"
 	authtypes "github.com/724165435/go-wallet-sdk/coins/cosmos/okc/tx/auth/types"
 	"github.com/724165435/go-wallet-sdk/coins/cosmos/okc/tx/common/ethsecp256k1"
 	"github.com/724165435/go-wallet-sdk/coins/cosmos/okc/tx/common/types"
+	"github.com/btcsuite/btcd/btcec/v2"
+	"github.com/btcsuite/btcd/btcec/v2/ecdsa"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -30,10 +31,7 @@ func MakeSignature(privateKeyHex string, msg authtypes.StdSignMsg) (sig authtype
 	}
 	ecPriv, ecPub := btcec.PrivKeyFromBytes(pkBytes)
 
-	result, err := ecdsa.SignCompact(ecPriv, m, false)
-	if err != nil {
-		return
-	}
+	result := ecdsa.SignCompact(ecPriv, m, false)
 
 	V := result[0]
 	R := result[1:33]
