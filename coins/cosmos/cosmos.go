@@ -478,7 +478,6 @@ func BuildTxAction(param CommonParam, messages []*types.Any, privateKeyHex strin
 		signBytes = append(signBytes, V-27)
 	} else {
 		hash := sha256.Sum256(signDocBtyes)
-		var err error
 		signBytes = ecdsa.SignCompact(privateKey, hash[:], false)
 		signBytes = signBytes[1:]
 	}
@@ -543,7 +542,6 @@ func BuildTxActionForSignMessage(param CommonParam, messages []*types.Any, priva
 		signBytes = append(signBytes, V-27)
 	} else {
 		hash := sha256.Sum256(signDocBtyes)
-		var err error
 		signBytes = ecdsa.SignCompact(privateKey, hash[:], false)
 		signBytes = signBytes[1:]
 	}
