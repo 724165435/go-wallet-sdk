@@ -63,3 +63,29 @@ func ToBigInt(v string) *big.Int {
 	b.SetString(x, base)
 	return b
 }
+
+// BigIntToUintBytes 将大整数转换为指定长度的无符号字节切片
+func BigIntToUintBytes(value *big.Int, byteLength int) ([]byte, error) {
+	if value == nil {
+		return nil, nil
+	}
+
+	// 获取大整数的字节表示
+	bytes := value.Bytes()
+
+	// 如果字节长度不足，在前面补0
+	if len(bytes) < byteLength {
+		padded := make([]byte, byteLength)
+		copy(padded[byteLength-len(bytes):], bytes)
+		return padded, nil
+	}
+	return bytes, nil
+}
+
+// Reverse 反转字节切片
+
+func Reverse(data []byte) {
+	for i, j := 0, len(data)-1; i < j; i, j = i+1, j-1 {
+		data[i], data[j] = data[j], data[i]
+	}
+}
