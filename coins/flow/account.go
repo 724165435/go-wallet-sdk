@@ -5,6 +5,7 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 	"encoding/hex"
+	"math/big"
 
 	"github.com/724165435/go-wallet-sdk/coins/flow/core"
 	"github.com/724165435/go-wallet-sdk/util"
@@ -18,6 +19,74 @@ func GenerateKeyPair() (privKey, pubKey string) {
 	return hex.EncodeToString(privateKey.D.Bytes()), hex.EncodeToString(pubKeyBytes)
 }
 
+// DerivePublicKeyFromPrivate 根据私钥推导公钥（Flow格式）
+func DerivePublicKeyFromPrivate(privateKeyHex string) (string, error) {
+	privKeyBytes, err := hex.DecodeString(privateKeyHex)
+	if err != nil {
+		return "", err
+	}
+
+	// 使用btcec库恢复私钥
+	privateKey, _ := btcec.PrivKeyFromBytes(privKeyBytes)
+	privateKeyEcdsa := privateKey.ToECDSA()
+
+	// 提取公钥坐标
+	xBytes := privateKeyEcdsa.PublicKey.X.Bytes()
+	yBytes := privateKeyEcdsa.PublicKey.Y.Bytes()
+
+	// 填充到32字节
+	paddedX := make([]byte, 32)
+	paddedY := make([]byte, 32)
+	copy(paddedX[32-len(xBytes):], xBytes)
+	copy(paddedY[32-len(yBytes):], yBytes)
+
+	// Flow格式：0x04 + X + Y
+	publicKeyBytes := append([]byte{0x04}, paddedX...)
+	publicKeyBytes = append(publicKeyBytes, paddedY...)
+
+	return hex.EncodeToString(publicKeyBytes), nil
+}
+
+// DerivePublicKeyFromPrivateBigInt 使用大整数操作的替代实现
+func DerivePublicKeyFromPrivateBigInt(privateKeyHex string) (string, error) {
+	privKeyBytes, err := hex.DecodeString(privateKeyHex)
+	if err != nil {
+		return "", err
+	}
+
+	// 将私钥字节转换为大整数
+	d := new(big.Int).SetBytes(privKeyBytes)
+
+	// 使用P256曲线计算公钥点
+	curve := elliptic.P256()
+	x, y := curve.ScalarBaseMult(d.Bytes())
+
+	// 编码公钥点坐标
+	xBytes := x.Bytes()
+	yBytes := y.Bytes()
+
+	// 填充到32字节
+	paddedX := make([]byte, 32)
+	paddedY := make([]byte, 32)
+	copy(paddedX[32-len(xBytes):], xBytes)
+	copy(paddedY[32-len(yBytes):], yBytes)
+
+	// Flow格式：0x04 + X + Y
+	publicKeyBytes := append([]byte{0x04}, paddedX...)
+	publicKeyBytes = append(publicKeyBytes, paddedY...)
+
+	return hex.EncodeToString(publicKeyBytes), nil
+}
+
+// DerivePublicKeyFromPrivateBigIntRaw 使用大整数操作推导公钥（去掉0x04前缀）
+func DerivePublicKeyFromPrivateBigIntRaw(privateKeyHex string) (string, error) {
+	pubKeyWithPrefix, err := DerivePublicKeyFromPrivateBigInt(privateKeyHex)
+	if err != nil {
+		return "", err
+	}
+
+	return pubKeyWithPrefix[2:], nil
+}
 func SignTx(signerAddr, privKeyHex string, tx *core.Transaction) error {
 	envelopeMessage := tx.EnvelopeMessage()
 	transactionDomainTag := new([32]byte)
