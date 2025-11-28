@@ -210,7 +210,7 @@ func SignTx(tx TxStruct, txType int32, privateKey string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return util.EncodeHexWith0x(lengthBytes) + hex.EncodeToString(signed), nil
+	return util.EncodeHexWithPrefix(lengthBytes) + hex.EncodeToString(signed), nil
 }
 
 func SignTx2(tx TxStruct2, signature []byte) (string, error) {
@@ -245,7 +245,7 @@ func SignTx2(tx TxStruct2, signature []byte) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return util.EncodeHexWith0x(lengthBytes) + hex.EncodeToString(signed), nil
+	return util.EncodeHexWithPrefix(lengthBytes) + hex.EncodeToString(signed), nil
 }
 
 func CalTxHash(signedTx string) (string, error) {
