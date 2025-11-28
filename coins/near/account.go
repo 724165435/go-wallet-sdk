@@ -29,14 +29,15 @@ func ValidateAddress(addr string) bool {
 }
 
 func PrivateKeyToAddr(privateKey string) (string, error) {
-	bytes, err := hex.DecodeString(privateKey)
+
+	seedBytes, err := hex.DecodeString(privateKey)
 	if err != nil {
 		return "", err
 	}
-
-	key := ed25519.PrivateKey(bytes)
-	pubBytes := key[32:]
+	edPriv := ed25519.NewKeyFromSeed(seedBytes)
+	pubBytes := edPriv[32:]
 	return hex.EncodeToString(pubBytes), nil
+
 }
 
 func PrivateKeyToPublicKeyHex(privateKey string) (string, error) {
