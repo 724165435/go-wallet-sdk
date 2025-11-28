@@ -58,14 +58,14 @@ func NewPrivateKey() string {
 	privkey := make([]byte, 32)
 	blob := key.D.Bytes()
 	copy(privkey[32-len(blob):], blob)
-	return util.EncodeHexWith0x(privkey)
+	return util.EncodeHexWithPrefix(privkey)
 }
 
 func GetPublicKey(privateKeyHex string) (string, error) {
 	privateKeyBytes := util.DecodeHexString(privateKeyHex)
 	x, y := secp256k1.S256().ScalarBaseMult(privateKeyBytes)
 	publicKeyBytes := elliptic.Marshal(secp256k1.S256(), x, y)
-	return util.EncodeHexWith0x(publicKeyBytes), nil
+	return util.EncodeHexWithPrefix(publicKeyBytes), nil
 }
 
 func GetAddressByPublicKey(publicKeyHex string, chainId string) (string, error) {
