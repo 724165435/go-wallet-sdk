@@ -52,7 +52,7 @@ func GetAddress(pub *btcec.PublicKey) (string, error) {
 }
 
 func Transfer(transaction *ethereum.EthTransaction, chainId *big.Int, prvKey *btcec.PrivateKey) (string, error) {
-	return transaction.SignTransaction(chainId, prvKey)
+	return transaction.SignTransaction(chainId, prvKey), nil
 }
 func VerifySignMsg(signature, message, address string, addPrefix bool) error {
 	pub, err := ethereum.EcRecoverPubKey(signature, message, addPrefix)
