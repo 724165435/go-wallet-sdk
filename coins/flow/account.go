@@ -5,7 +5,6 @@ import (
 	"crypto/elliptic"
 	"crypto/rand"
 	"encoding/hex"
-	"math/big"
 
 	"github.com/724165435/go-wallet-sdk/coins/flow/core"
 	"github.com/724165435/go-wallet-sdk/util"
@@ -18,7 +17,6 @@ func GenerateKeyPair() (privKey, pubKey string) {
 	pubKeyBytes := append(privateKey.PublicKey.X.Bytes(), privateKey.PublicKey.Y.Bytes()...)
 	return hex.EncodeToString(privateKey.D.Bytes()), hex.EncodeToString(pubKeyBytes)
 }
-
 // DerivePublicKeyFromPrivate 根据私钥推导公钥（Flow格式）
 func DerivePublicKeyFromPrivate(privateKeyHex string) (string, error) {
 	privKeyBytes, err := hex.DecodeString(privateKeyHex)
