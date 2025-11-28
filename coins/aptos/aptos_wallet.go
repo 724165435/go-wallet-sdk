@@ -4,16 +4,16 @@ import (
 	"encoding/hex"
 
 	"github.com/724165435/go-wallet-sdk/crypto/ed25519"
-	"github.com/724165435/go-wallet-sdk/wallet"
+	//"github.com/724165435/go-wallet-sdk/wallet"
 )
 
 const HexPrefix = "0x"
 
-type AptosWallet struct {
-	wallet.WalletBase
-}
+// type AptosWallet struct {
+// 	wallet.WalletBase
+// }
 
-func (aw *AptosWallet) GetRandomPrivateKey() (string, error) {
+func GetRandomPrivateKey() (string, error) {
 	p, err := ed25519.GenerateKey()
 	if err != nil {
 		return "", err
