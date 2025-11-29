@@ -3,7 +3,7 @@ module github.com/724165435/go-wallet-sdk/coins/zkspace
 go 1.19
 
 require (
-	github.com/724165435/go-wallet-sdk/coins/zksync v0.0.0-20231109150741-14b4d76796cb
+	github.com/724165435/go-wallet-sdk/coins/zksync v0.0.4
 	github.com/stretchr/testify v1.8.4
 )
 
