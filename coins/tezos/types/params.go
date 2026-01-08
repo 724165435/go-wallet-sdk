@@ -13,12 +13,14 @@ var (
 	Mainnet    = MustParseChainIdHash("NetXdQprcVkpaWU")
 	Ithacanet  = MustParseChainIdHash("NetXnHfVqm9iesp")
 	Jakartanet = MustParseChainIdHash("NetXLH1uAxK7CCh")
+	Ghostnet   = MustParseChainIdHash("NetXsqzbfFenSTS")
+	Weeklynet  = MustParseChainIdHash("NetXd56aBs1aeW3")
+	Mondainet  = MustParseChainIdHash("NetXe8DbhW9A1eS")
 
 	// DefaultParams defines the blockchain configuration for Mainnet under the latest
 	// protocol.
 	DefaultParams = NewParams().ForNetwork(Mainnet).ForProtocol(ProtoV014).
 			Mixin(&Params{
-			OperationTagsVersion:         2,
 			MaxOperationsTTL:             120,
 			HardGasLimitPerOperation:     1040000,
 			HardGasLimitPerBlock:         5200000,
@@ -30,7 +32,6 @@ var (
 
 	IthacanetParams = NewParams().ForNetwork(Ithacanet).ForProtocol(ProtoV014).
 			Mixin(&Params{
-			OperationTagsVersion:         2,
 			MaxOperationsTTL:             120,
 			HardGasLimitPerOperation:     1040000,
 			HardGasLimitPerBlock:         5200000,
@@ -42,7 +43,6 @@ var (
 
 	JakartanetParams = NewParams().ForNetwork(Jakartanet).ForProtocol(ProtoV014).
 				Mixin(&Params{
-			OperationTagsVersion:         2,
 			MaxOperationsTTL:             120,
 			HardGasLimitPerOperation:     1040000,
 			HardGasLimitPerBlock:         5200000,
@@ -51,7 +51,39 @@ var (
 			HardStorageLimitPerOperation: 60000,
 			MinimalBlockDelay:            15 * time.Second,
 		})
-)
+
+	GhostnetParams = NewParams().ForNetwork(Ghostnet).ForProtocol(ProtoV014).
+				Mixin(&Params{
+			MaxOperationsTTL:             120,
+			HardGasLimitPerOperation:     1040000,
+			HardGasLimitPerBlock:         5200000,
+			OriginationSize:              257,
+			CostPerByte:                  250,
+			HardStorageLimitPerOperation: 60000,
+			MinimalBlockDelay:            15 * time.Second,
+		})
+
+	WeeklynetParams = NewParams().ForNetwork(Weeklynet).ForProtocol(ProtoV014).
+				Mixin(&Params{
+			MaxOperationsTTL:             120,
+			HardGasLimitPerOperation:     1040000,
+			HardGasLimitPerBlock:         5200000,
+			OriginationSize:              257,
+			CostPerByte:                  250,
+			HardStorageLimitPerOperation: 60000,
+			MinimalBlockDelay:            15 * time.Second,
+		})
+
+	MondainetParams = NewParams().ForNetwork(Mondainet).ForProtocol(ProtoV016).
+				Mixin(&Params{
+			MaxOperationsTTL:             120,
+			HardGasLimitPerOperation:     1040000,
+			HardGasLimitPerBlock:         5200000,
+			OriginationSize:              257,
+			CostPerByte:                  250,
+			HardStorageLimitPerOperation: 60000,
+			MinimalBlockDelay:            15 * time.Second,
+		})
 
 type Params struct {
 	// chain identity, not part of RPC
@@ -118,10 +150,14 @@ func (p *Params) ForNetwork(net ChainIdHash) *Params {
 		pp.SecurityDepositRampUpCycles = 64
 	case Ithacanet.Equal(net):
 		pp.Network = "Ithacanet"
-		pp.Version = 11 // starts at Hangzhou
 	case Jakartanet.Equal(net):
 		pp.Network = "Jakartanet"
-		pp.Version = 12 // starts at Ithaca
+	case Ghostnet.Equal(net):
+		pp.Network = "Ghostnet"
+	case Weeklynet.Equal(net):
+		pp.Network = "Weeklynet"
+	case Mondainet.Equal(net):
+		pp.Network = "Mondainet"
 	default:
 		pp.Network = "Sandbox"
 	}
@@ -323,16 +359,52 @@ func (p *Params) ForProtocol(proto ProtocolHash) *Params {
 			pp.StartHeight = 2584577
 			pp.EndHeight = -1
 		} else if Ithacanet.Equal(p.ChainId) {
-			pp.Version = 13
+			pp.Version = 23
 			pp.StartBlockOffset = 8192
 			pp.StartCycle = 2
 			pp.StartHeight = 8193
 			pp.EndHeight = -1
 		} else if Jakartanet.Equal(p.ChainId) {
-			pp.Version = 13
+			pp.Version = 23
 			pp.StartBlockOffset = 8192
 			pp.StartCycle = 2
 			pp.StartHeight = 8193
+			pp.EndHeight = -1
+		}
+	case PtMumbai.Equal(proto): // Mumbai
+		pp.Version = 24
+		pp.OperationTagsVersion = 3
+		pp.NumVotingPeriods = 5
+		pp.MaxOperationsTTL = 120
+		if Mainnet.Equal(p.ChainId) {
+			pp.StartBlockOffset = 2584576
+			pp.StartCycle = 509
+			pp.VoteBlockOffset = 0
+			// FIXME: this is extremely hacky!
+			pp.BlocksPerCycle = 8192
+			pp.BlocksPerCommitment = 64
+			pp.BlocksPerRollSnapshot = 512
+			pp.BlocksPerVotingPeriod = 40960
+			pp.EndorsersPerBlock = 0
+			pp.StartHeight = 2584577
+			pp.EndHeight = -1
+		}
+	case PtLima.Equal(proto): // Lima
+		pp.Version = 15
+		pp.OperationTagsVersion = 2
+		pp.NumVotingPeriods = 5
+		pp.MaxOperationsTTL = 120
+		if Mainnet.Equal(p.ChainId) {
+			pp.StartBlockOffset = 2758341
+			pp.StartCycle = 544
+			pp.VoteBlockOffset = 0
+			// FIXME: this is extremely hacky!
+			pp.BlocksPerCycle = 8192
+			pp.BlocksPerCommitment = 64
+			pp.BlocksPerRollSnapshot = 512
+			pp.BlocksPerVotingPeriod = 40960
+			pp.EndorsersPerBlock = 0
+			pp.StartHeight = 2758342
 			pp.EndHeight = -1
 		}
 	}

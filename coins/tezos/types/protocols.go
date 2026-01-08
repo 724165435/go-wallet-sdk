@@ -21,6 +21,8 @@ var (
 	ProtoV012_2    = ParseProtocolHashSafe("Psithaca2MLRFYargivpo7YvUr7wUDqyxrdhC5CQq78mRvimz6A")
 	ProtoV013_2    = ParseProtocolHashSafe("PtJakart2xVj7pYXJBXrqHgd82rdkLey5ZeeGwDgPp9rhQUbSqY")
 	ProtoV014      = ParseProtocolHashSafe("PtSeouLouXkxhg39oWzjxDWaCydNfR3RxCUrNe4Q9Ro8BTehcbh")
+	ProtoV015      = ParseProtocolHashSafe("PtMumbai2TmsJHNGRkD8v8YDbtao7BLUC3wjASn1inAKLFCj8Ae")
+	ProtoV016      = ParseProtocolHashSafe("PtTALLiNtPec7mE7yY4m3k26J8Qukef3E3ehzhfXgFZKGtDdAXu")
 
 	// aliases
 	PtAthens = ProtoV004
@@ -34,4 +36,6 @@ var (
 	Psithaca = ProtoV012_2
 	PtJakart = ProtoV013_2
 	PtKathm  = ProtoV014
+	PtMumbai = ProtoV015
+	PtLima   = ProtoV016
 )
