@@ -53,7 +53,7 @@ var (
 		})
 
 	GhostnetParams = NewParams().ForNetwork(Ghostnet).ForProtocol(ProtoV014).
-				Mixin(&Params{
+			Mixin(&Params{
 			MaxOperationsTTL:             120,
 			HardGasLimitPerOperation:     1040000,
 			HardGasLimitPerBlock:         5200000,
@@ -64,7 +64,7 @@ var (
 		})
 
 	WeeklynetParams = NewParams().ForNetwork(Weeklynet).ForProtocol(ProtoV014).
-				Mixin(&Params{
+			Mixin(&Params{
 			MaxOperationsTTL:             120,
 			HardGasLimitPerOperation:     1040000,
 			HardGasLimitPerBlock:         5200000,
@@ -75,7 +75,7 @@ var (
 		})
 
 	MondainetParams = NewParams().ForNetwork(Mondainet).ForProtocol(ProtoV016).
-				Mixin(&Params{
+			Mixin(&Params{
 			MaxOperationsTTL:             120,
 			HardGasLimitPerOperation:     1040000,
 			HardGasLimitPerBlock:         5200000,
@@ -84,6 +84,7 @@ var (
 			HardStorageLimitPerOperation: 60000,
 			MinimalBlockDelay:            15 * time.Second,
 		})
+)
 
 type Params struct {
 	// chain identity, not part of RPC
