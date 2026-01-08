@@ -72,6 +72,7 @@ func TestBtcScript(t *testing.T) {
 	txBuild.AddInput2("02133b22fdd190519ef9b49aca9a8dfdcbab0197c77109bb829cd51e17debed1", 0, "cPnvkvUYyHcSSS26iD1dkrJdV7k1RoUqJLhn3CYxpo398PdLVE22", "tb1qtsq9c4fje6qsmheql8gajwtrrdrs38kdzeersc", 8000)
 	txBuild.AddOutput("tb1qtsq9c4fje6qsmheql8gajwtrrdrs38kdzeersc", 6000)
 	txBuild.AddOutput2("", "6a01520b0080c7f6cf9b7c858c2002", 0)
+	//6a146f6d6e69 00000000 0000001f 000000003b8b87c0 6a146f6d6e69=omni  0000001f=31    000000003b8b87c0 = 999000000 
 	tx, err := txBuild.Build()
 	assert.Nil(t, err)
 	txHex, err := GetTxHex(tx)

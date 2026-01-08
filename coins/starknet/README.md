@@ -22,7 +22,7 @@ go get -u github.com/724165435/go-wallet-sdk/coins/starknet
 	}
 	preAddress := BigToHexWithPadding(calculateAddress)
 ```
-0x054a928a8d3d082a410e07469a20edfa6f423c3f85103fc9a06aee5f4bb67980
+
 
 ###  Transfer
 ```go
